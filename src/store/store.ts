@@ -1,16 +1,15 @@
-// src/store/store.ts
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE } from "redux-persist";
+import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE, } from "redux-persist";
 import persistReducer from "redux-persist/es/persistReducer";
 import persistStore from "redux-persist/es/persistStore";
 import storage from "redux-persist/lib/storage";
-import themeReducer from './slices/ThemeSlices';
-import pokedexReducer from './slices/PokedexSlice';
+import themeReducer from "./slices/ThemeSlices";
+import pokedexReducer from "./slices/PokedexSlice";
 
 const persistConfig = {
-    key: 'root',
+    key: "root",
     storage,
-    whitelist: ['theme', 'pokedex'],
+    whitelist: ["theme", "pokedex"],
 };
 
 const rootReducer = combineReducers({

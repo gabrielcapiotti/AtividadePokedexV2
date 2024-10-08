@@ -21,11 +21,11 @@ interface BasicPokemon {
 export function PaginaListagem() {
     const [pokemons, setPokemons] = useState<Pokemon[]>([]);
     const [filteredPokemons, setFilteredPokemons] = useState<Pokemon[]>([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [searchTerm, setSearchTerm] = useState("");
+    const [currentPage, setCurrentPage] = useState<number>(1); // Defina o tipo como número explicitamente
+    const [searchTerm, setSearchTerm] = useState<string>(""); // Defina o tipo como string
 
-    const pokemonsPerPage = 18;
-    const favoritos = useSelector((state: RootState) => state.pokedex.favorites);
+    const pokemonsPerPage: number = 18; // Defina o tipo explicitamente
+    const favoritos: Pokemon[] = useSelector((state: RootState) => state.pokedex.favorites); // Defina o tipo explícito
     const dispatch = useDispatch();
 
     const handlePageChange = (_: React.ChangeEvent<unknown>, value: number) => {
@@ -62,7 +62,7 @@ export function PaginaListagem() {
                 })
             );
 
-            const validPokemons = pokemonDetails.filter(pokemon => pokemon !== null) as Pokemon[];
+            const validPokemons = pokemonDetails.filter((pokemon): pokemon is Pokemon => pokemon !== null);
             setPokemons(validPokemons);
             setFilteredPokemons(validPokemons);
 
@@ -75,7 +75,7 @@ export function PaginaListagem() {
     useEffect(() => {
         const storedPokemons = localStorage.getItem("pokemons");
         if (storedPokemons) {
-            const parsedPokemons = JSON.parse(storedPokemons);
+            const parsedPokemons: Pokemon[] = JSON.parse(storedPokemons);
             setPokemons(parsedPokemons);
             setFilteredPokemons(parsedPokemons);
         } else {
@@ -92,11 +92,11 @@ export function PaginaListagem() {
             pokemon.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
         setFilteredPokemons(filtered);
-        setCurrentPage(1);
+        setCurrentPage(1); // Resetar a página quando fizer busca
     }, [searchTerm, pokemons]);
 
     const handleToggleFavorite = (pokemon: Pokemon) => {
-        const isFavorito = favoritos.some(fav => fav.id === pokemon.id);
+        const isFavorito = favoritos.some((fav: Pokemon) => fav.id === pokemon.id);
         if (isFavorito) {
             dispatch(removeFavorite(pokemon.id));
         } else {

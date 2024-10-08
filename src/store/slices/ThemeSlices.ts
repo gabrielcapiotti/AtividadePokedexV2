@@ -6,13 +6,17 @@ interface ThemeState {
 
 const getInitialTheme = (): ThemeState => {
     if (typeof window !== 'undefined') {
-        const storedTheme = localStorage.getItem('theme') as 'light' | 'dark';
-        if (storedTheme) {
-            return { theme: storedTheme };
+        try {
+            const storedTheme = localStorage.getItem('theme') as 'light' | 'dark';
+            if (storedTheme === 'light' || storedTheme === 'dark') {
+                return { theme: storedTheme };
+            }
+        } catch (error) {
+            console.error("Erro ao acessar o localStorage:", error);
         }
     }
     return { theme: 'light' };
-}
+};
 
 const initialState: ThemeState = getInitialTheme();
 
@@ -23,7 +27,11 @@ const themeSlice = createSlice({
         toggleTheme: (state) => {
             state.theme = state.theme === 'light' ? 'dark' : 'light';
             if (typeof window !== 'undefined') {
-                localStorage.setItem('theme', state.theme);
+                try {
+                    localStorage.setItem('theme', state.theme);
+                } catch (error) {
+                    console.error("Erro ao salvar tema no localStorage:", error);
+                }
             }
         },
     },

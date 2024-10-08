@@ -12,13 +12,16 @@ interface PokedexState {
 }
 
 const loadFavoritesFromLocalStorage = (): Pokemon[] => {
-    try {
-        const storedFavorites = localStorage.getItem('favoritos');
-        return storedFavorites ? JSON.parse(storedFavorites) : [];
-    } catch (error) {
-        console.error('Erro ao carregar favoritos do localStorage:', error);
-        return [];
+    if (typeof window !== 'undefined') {
+        try {
+            const storedFavorites = localStorage.getItem('favoritos');
+            return storedFavorites ? JSON.parse(storedFavorites) : [];
+        } catch (error) {
+            console.error('Erro ao carregar favoritos do localStorage:', error);
+            return [];
+        }
     }
+    return [];
 };
 
 const initialState: PokedexState = {
@@ -33,12 +36,16 @@ const PokedexSlice = createSlice({
             const exists = state.favorites.some(pokemon => pokemon.id === action.payload.id);
             if (!exists) {
                 state.favorites.push(action.payload);
-                localStorage.setItem('favoritos', JSON.stringify(state.favorites));
+                if (typeof window !== 'undefined') {
+                    localStorage.setItem('favoritos', JSON.stringify(state.favorites));
+                }
             }
         },
         removeFavorite: (state, action: PayloadAction<number>) => {
             state.favorites = state.favorites.filter(pokemon => pokemon.id !== action.payload);
-            localStorage.setItem('favoritos', JSON.stringify(state.favorites));
+            if (typeof window !== 'undefined') {
+                localStorage.setItem('favoritos', JSON.stringify(state.favorites));
+            }
         }
     }
 });
