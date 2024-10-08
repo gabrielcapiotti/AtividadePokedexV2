@@ -7,14 +7,21 @@ import { ConteudoEstiloV2 } from "../PaginaConteudo/ConteudoEstilo";
 import { RodapeEstilo } from "../RodapeConteudo/RodapeEstilo";
 import { BarraNavegacao } from "../NavegacaoConteudo/NavegacaoConteudo";
 
+interface Pokemon {
+    id: number;
+    name: string;
+    image: string;
+    height: number;
+}
+
 export const Pokedex: React.FC = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const favoritos = useAppSelector((state) => state.pokedex.favorites);
     const dispatch = useAppDispatch();
     const theme = useTheme();
 
-    const handleRemoveFavorite = (pokemonId: number) => {
-        dispatch(removeFavorite(pokemonId));
+    const handleRemoveFavorite = (pokemon: Pokemon) => {
+        dispatch(removeFavorite(pokemon.id));
     };
 
     const handleSearch = (termo: string) => {
@@ -48,7 +55,7 @@ export const Pokedex: React.FC = () => {
                                 key={pokemon.id}
                                 pokemon={pokemon}
                                 isFavorite={true}
-                                onToggleFavorite={() => handleRemoveFavorite(pokemon.id)}
+                                onToggleFavorite={() => handleRemoveFavorite(pokemon)}
                             />
                         ))
                     ) : (
