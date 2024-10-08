@@ -11,8 +11,18 @@ interface PokedexState {
     favorites: Pokemon[];
 }
 
+const loadFavoritesFromLocalStorage = (): Pokemon[] => {
+    try {
+        const storedFavorites = localStorage.getItem('favoritos');
+        return storedFavorites ? JSON.parse(storedFavorites) : [];
+    } catch (error) {
+        console.error('Erro ao carregar favoritos do localStorage:', error);
+        return [];
+    }
+};
+
 const initialState: PokedexState = {
-    favorites: JSON.parse(localStorage.getItem('favoritos') || '[]'),
+    favorites: loadFavoritesFromLocalStorage(),
 };
 
 const PokedexSlice = createSlice({
