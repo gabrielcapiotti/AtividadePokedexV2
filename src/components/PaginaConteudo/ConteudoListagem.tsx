@@ -27,7 +27,7 @@ const CardsContainer = styled.div`
     width: 90vw;
 `;
 
-export const MenuListagem: React.FC<MenuListagemProps> = ({ pokemonsFiltrados, favoritos, onToggleFavorite }) => {
+export const MenuListagem: React.FC<MenuListagemProps> = ({ pokemonsFiltrados, favoritos }) => {
     const theme = useTheme();
     const dispatch = useDispatch();
 
