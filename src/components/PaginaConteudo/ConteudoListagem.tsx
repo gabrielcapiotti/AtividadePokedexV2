@@ -3,8 +3,7 @@ import { ConteudoEstilo } from "./ConteudoEstilo";
 import { useTheme } from '@mui/material/styles';
 import styled from 'styled-components';
 import { PokemonCard } from '../CardPokemon/CardConteudo';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../store/store';
+import { useDispatch } from 'react-redux';
 import { addFavorite, removeFavorite } from '../../store/slices/PokedexSlice';
 
 interface Pokemon {
@@ -20,7 +19,6 @@ interface MenuListagemProps {
     onToggleFavorite: (pokemon: Pokemon) => void;
 }
 
-
 const CardsContainer = styled.div`
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -29,10 +27,9 @@ const CardsContainer = styled.div`
     width: 90vw;
 `;
 
-export const MenuListagem: React.FC<MenuListagemProps> = ({ pokemonsFiltrados }) => {
+export const MenuListagem: React.FC<MenuListagemProps> = ({ pokemonsFiltrados, favoritos, onToggleFavorite }) => {
     const theme = useTheme();
     const dispatch = useDispatch();
-    const favoritos = useSelector((state: RootState) => state.pokedex.favorites);
 
     const isFavorite = (pokemon: Pokemon) => favoritos.some(fav => fav.id === pokemon.id);
 
