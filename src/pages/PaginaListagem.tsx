@@ -98,14 +98,14 @@ export function PaginaListagem() {
     const handleToggleFavorite = (pokemon: Pokemon) => {
         const isFavorito = favoritos.some(fav => fav.id === pokemon.id);
         if (isFavorito) {
-            dispatch(removeFavorite(pokemon));
+            dispatch(removeFavorite(pokemon.id));
         } else {
             dispatch(addFavorite(pokemon));
         }
     };
 
     return (
-        <div className="container">  {/* Adiciona a classe container */}
+        <div className="container">
             <BarraNavegacao onSearch={onSearch} totalFavoritos={favoritos.length} titulo="Lista de Pokémons" />
 
             <MenuListagem

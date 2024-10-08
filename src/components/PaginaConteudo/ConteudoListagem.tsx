@@ -16,6 +16,8 @@ interface Pokemon {
 
 interface MenuListagemProps {
     pokemonsFiltrados: Pokemon[];
+    favoritos: Pokemon[];
+    onToggleFavorite: (pokemon: Pokemon) => void;
 }
 
 const CardsContainer = styled.div`
