@@ -44,7 +44,7 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon, isFavorite, o
                     {isFavorite ? (
                         <FavoriteIcon style={{ color: theme.palette.primary.main }} />
                     ) : (
-                        <FavoriteBorderIcon style={{ color: theme.palette.primary.contrastText }} />
+                        <FavoriteBorderIcon style={{ color: theme.palette.text.primary }} />
                     )}
                 </IconButton>
 
