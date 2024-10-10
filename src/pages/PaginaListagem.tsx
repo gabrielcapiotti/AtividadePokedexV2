@@ -21,11 +21,11 @@ interface BasicPokemon {
 export function PaginaListagem() {
     const [pokemons, setPokemons] = useState<Pokemon[]>([]);
     const [filteredPokemons, setFilteredPokemons] = useState<Pokemon[]>([]);
-    const [currentPage, setCurrentPage] = useState<number>(1); // Defina o tipo como número explicitamente
-    const [searchTerm, setSearchTerm] = useState<string>(""); // Defina o tipo como string
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [searchTerm, setSearchTerm] = useState<string>("");
 
-    const pokemonsPerPage: number = 18; // Defina o tipo explicitamente
-    const favoritos: Pokemon[] = useSelector((state: RootState) => state.pokedex.favorites); // Defina o tipo explícito
+    const pokemonsPerPage: number = 18;
+    const favoritos: Pokemon[] = useSelector((state: RootState) => state.pokedex.favorites);
     const dispatch = useDispatch();
 
     const handlePageChange = (_: React.ChangeEvent<unknown>, value: number) => {
@@ -92,7 +92,7 @@ export function PaginaListagem() {
             pokemon.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
         setFilteredPokemons(filtered);
-        setCurrentPage(1); // Resetar a página quando fizer busca
+        setCurrentPage(1);
     }, [searchTerm, pokemons]);
 
     const handleToggleFavorite = (pokemon: Pokemon) => {
